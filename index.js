@@ -43,9 +43,9 @@ client.on("message", message => {
                 console.log(err)
         })
     } else if(message.content.startsWith("!info")){
-        
+        generateInfo(message, difficulty)
     } else if(message.content.startsWith('!test')) {
-        message.reply(formatGage(message, "avec %rp"))
+        generateInfo(message, difficulty)
     }
 })
 
@@ -82,7 +82,71 @@ function formatGage(message, gage) {
 }
 
 function randomIntFromInterval(min, max) { // min and max included 
-  return Math.floor(Math.random() * (max - min + 1) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function generateInfo(message, difficulty) {
+    var interrupt = false
+    var args = message.content.split(' ')
+    var embed = new discord.MessageEmbed()
+        .setColor("#00ffff")
+        .setTitle("Info sur la difficultée en cours")
+        .addFields({name: 'Nombre de véritées', value: Object.keys(difficulty.truth).length, inline: true})
+        .addFields({name: 'Nombre de gages', value: Object.keys(difficulty.dare).length, inline: true})
+    if(message.content.includes('-t')) {
+        var count = 0;
+        var response = "--{Liste des véritées}--\n"
+        Object.keys(difficulty.truth).forEach(e => {
+            count += 1
+            response += e + " : " + difficulty.truth[e].description + "\n"
+
+            if(count == 10) {
+                message.channel.send(response)
+                count =0
+                response = ""
+            }
+        })
+        message.channel.send(response)
+    }
+    if(message.content.includes('-d')) {
+        var count = 0;
+        var response = "--{Liste des Actions}--\n"
+        Object.keys(difficulty.dare).forEach(e => {
+            count += 1
+            response += e + " : " + difficulty.dare[e].description + "\n"
+
+            if(count == 10) {
+                message.channel.send(response)
+                count =0
+                response = ""
+            }
+        })
+        message.channel.send(response)
+    }
+
+    if(message.content.includes('-ld')) {
+        interrupt = true
+        var listDifficulties = []
+        fs.readdir("./difficulties/", (err, files) => {
+            if(err) console.log(err);
+
+            let jsfile = files.filter(f => f.split(".").pop() === "json" && !f.startsWith("!"))
+            if (jsfile.length <= 0) {
+                console.log("Couldn't find commands");
+                return;
+            }
+
+            jsfile.forEach((f,i) => {
+                console.log(`${f} loaded !`);
+                listDifficulties.push(f.replace('.json',''))
+            });
+            embed.addFields({name: 'Liste des difficultés', value: listDifficulties.join(', ')})
+            message.channel.send(embed)
+            return
+        })
+    }
+    if(interrupt == false)
+        message.channel.send(embed)
 }
 
 /*
