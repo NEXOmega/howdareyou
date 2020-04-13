@@ -1,0 +1,15 @@
+{
+    "truth":{
+        "test":{
+            "description": "Partie 1"
+        }
+    },
+    "dare":{
+    },
+    "special":{
+        "houla":{
+            "description":"Partie 2"
+        }
+    },
+    "images": []
+}

@@ -1,9 +1,13 @@
 const discord = require("discord.js")
 const fs = require('fs')
+const Party = require('./utils/party.js')
+
 const client = new discord.Client();
-var difficulty = require('./difficulties/normal.json')
+var difficulty = require('./difficulties/test.json')
 const config = require('./config.json')
 
+var partyList = {}
+var playerList = {}
 var lastPlayer = ""
 client.once('ready', () => {
     console.log('Ready !')
@@ -14,23 +18,36 @@ client.login(config.token)
 client.on("message", message => {
     if(!message.content.startsWith("!")) return
 
+    var args = message.content.split(' ')
     if(message.content.startsWith('!help')){
         message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
         difficulty = require("./difficulties/"+message.content.split(' ')[1])
         message.reply("Set difficulty to " + message.content.split(" ")[1])
     } else if(message.content.startsWith("!truth") || message.content.startsWith("!dare")) {
-        var type = message.content.replace("!", "")
-        var keys = Object.keys(difficulty[type])
-        const randIndex = Math.floor(Math.random() * keys.length)
+        if(playerList[message.author.id] == undefined)
+            playerList[message.author.id] = {gageDone: []}
 
-        var randKey = keys[randIndex]
-        //message.reply(difficulty[type][randKey].description)
-        message.reply(formatGage(message, difficulty[type][randKey]))
+        var key = generateGage(message)
+        var type = message.content.replace("!", "")
+        var gage = difficulty[type][key]
+        console.log(key)
+        if(playerList[message.author.id].gageDone.join(',').includes(key)){
+            if(gage.ifdone != null){
+                if(!playerList[message.author.id].gageDone.join(',').includes(gage.ifdone))
+                    playerList[message.author.id].gageDone.push(gage.ifdone)
+                gage = difficulty.special[gage.ifdone]
+            }
+        } else {
+            if(!playerList[message.author.id].gageDone.join(',').includes(key))
+                playerList[message.author.id].gageDone.push(key)
+        }
+
+        console.log(playerList[message.author.id].gageDone)
+        message.reply(formatGage(message, gage))
 
         lastPlayer = message.author
     } else if(message.content.startsWith('!addquest')){
-        var args = message.content.split(' ')
         var dif = require('./difficulties/'+args[1])
         var description = ""
         for(i = 4; i < args.length; i++) {
@@ -44,10 +61,58 @@ client.on("message", message => {
         })
     } else if(message.content.startsWith("!info")){
         generateInfo(message, difficulty)
-    } else if(message.content.startsWith('!test')) {
-        generateInfo(message, difficulty)
+    } else if(message.content.startsWith('!createparty')) {
+        if(partyList[args[1]] != null) {
+            message.reply("Cette party existe déja")
+            return
+        }
+        partyList[args[1]] = new Party(args[1], args[2])
+        partyList[args[1]].memberList.push(message.author.id)
+        playerList[message.author.id] = {party: args[1]}
+        message.reply("La party " + args[1] + " a bien été crée en difficulté " + args[2])
+    } else if(message.content.startsWith("!joinparty")) {
+        var party = partyList[args[1]]
+        if(party == undefined){
+            message.reply("Cette party n'existe pas")
+            return
+        }
+        if(party.locked == false && playerList[message.author.id].party == null) {
+            partyList[args[1]].memberList.push(message.author.id)
+            message.reply("Vous avez rejoins la party !")
+        } else
+            message.reply("Cette party est fermée ou vous etes deja dans une party faites !leave")
+    } else if(message.content.startsWith("!leave")) {
+        if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
+            message.reply("Erreur, vous n'êtes pas dans une party")
+            return
+        }
+        if(playerList[message.author.id].party != null) {
+            var party = partyList[playerList[message.author.id].party]
+            var index =party.memberList.indexOf(message.author.id)
+
+            if(index > -1 )
+                partyList[playerList[message.author.id].party].memberList.slice(index, 1)
+            if(partyList[playerList[message.author.id].party].memberList.length == 0) {
+                partyList[playerlist[message.author.id].party] = null
+            }
+            playerList[message.author.id].party = null
+
+            message.reply("Vous avez quitté la party, c'est triste :sob:")
+        }
     }
 })
+
+function generateGage(message){
+    if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null)
+        difficulty = require('./difficulties/'+partyList[playerList[message.author.id].party].difficulty)
+
+    var type = message.content.replace("!", "")
+    var keys = Object.keys(difficulty[type])
+    const randIndex = Math.floor(Math.random() * keys.length)
+
+    var randKey = keys[randIndex]
+    return randKey
+}
 
 function formatGage(message, gage) {
     var description = gage.description
@@ -71,7 +136,6 @@ function formatGage(message, gage) {
             online.forEach(e => {
                 if(e.user.bot == false && e.user != message.author)
                     listUsers.push(e.user.username)
-                
             })
             message.reply(Array.from(listUsers))
         })
@@ -149,6 +213,22 @@ function generateInfo(message, difficulty) {
         message.channel.send(embed)
 }
 
+// check if an element exists in array using a comparer function
+// comparer : function(currentElement)
+Array.prototype.inArray = function(comparer) { 
+    for(var i=0; i < this.length; i++) { 
+        if(comparer(this[i])) return true; 
+    }
+    return false; 
+}; 
+
+// adds an element to the array if it does not already exist using a comparer 
+// function
+Array.prototype.pushIfNotExist = function(element, comparer) { 
+    if (!this.inArray(comparer)) {
+        this.push(element);
+    }
+}; 
 /*
 %p = Le joueur
 %rp = Personne aléatoire
