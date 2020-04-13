@@ -41,6 +41,8 @@ client.on("message", message => {
             if(err)
                 console.log(err)
         })
+    } else if(message.content.startsWith("!info")){
+        
     } else if(message.content.startsWith('!test')) {
         message.reply(formatGage(message, "avec %rp"))
     }
