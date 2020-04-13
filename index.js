@@ -2,13 +2,14 @@ const discord = require("discord.js")
 const fs = require('fs')
 const client = new discord.Client();
 var difficulty = require('./difficulties/normal.json')
+const config = require('./config.json')
 
 var lastPlayer = ""
 client.once('ready', () => {
     console.log('Ready !')
 })
 
-client.login("NjkxNzEwMjAyMDU0OTY3MzA3.XpMdZw.ttPW9PA2AgIzHBkMOHIEnCWmLOc")
+client.login(config.token)
 
 client.on("message", message => {
     if(!message.content.startsWith("!")) return
