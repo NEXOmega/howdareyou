@@ -1,0 +1,33 @@
+{
+    "truth":{
+        "nude":{
+            "description": "Combien a combien de personne as tu envoyé une nude/photo sexy"
+        },
+        "fantasme": {
+            "description": "Quel est ton plus gros fantasme ?"
+        },
+        "baise?":{
+            "description": "Pourrais tu baiser avec %rp ? :smirk:"
+        },
+        "refroidissement":{
+            "description":"Qu'est ce qui te refroidit instantanément ?"
+        },
+        "chauffage":{
+            "description":"Quel est la chose qui t'excite le plus rapidement ?"
+        }
+    },
+    "dare":{
+        "num":{
+            "description": "Essaye de choper le num d'un inconnu en 10 min"
+        },
+        "crushlove": {
+            "description": "Dis a ton crush que tu l'aimes"
+        },
+        "fakepd":{
+            "description": "Fais croire a tes parents que tu es gay"
+        }
+    },
+    "images":{
+        
+    }
+}

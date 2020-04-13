@@ -1,0 +1,60 @@
+{
+    "truth":{
+        "cpltime": {
+            "description": "Combien de fois as tu été en couple ?"
+        },
+        "nuit":{
+            "description":"Ou aimerais tu passer la nuit ?"
+        },
+        "iledeserte":{
+            "description":"Qui emmênerais tu sur une ile deserte ?"
+        },
+        "jouet":{
+            "description":"Quel jouet voulais tu quand tu etais petit ?"
+        },
+        "defaut":{
+            "description":"Quel est ton plus grand défaut ?"
+        },
+        "qualite":{
+            "description": "Quel est ta plus grande qualitée ?"
+        },
+        "parachute":{
+            "description":"Si tu devais emmener quelqu'un en parachute qui serait-ce ?"
+        },
+        "reve":{
+            "description": "Quel est ton plus grand rêve ?"
+        },
+        "regret":{
+            "description":"Quel est ton plus grand regret ?"
+        }
+    },
+    "dare":{
+        "chanson": {
+            "description": "Chante une chanson"
+        },
+        "imit": {
+            "description": "Imite %lp, la dernière personne a avoir joué"
+        },
+        "favexpr": {
+            "description": "Dis l'expression favorite de ta personne favorite ici-présente"
+        },
+        "citr": {
+            "description": "Mange un citron"
+        },
+        "arbredroit": {
+            "description": "Fais l'arbre droit pendant 30 secondes"
+        },
+        "meme": {
+            "description": "Fais un meme"
+        },
+        "squat":{
+            "description": "Fais 60 squats"
+        },
+        "cocasse":{
+            "description":"Raconte une anecdote cocasse"
+        }
+    },
+    "images":[
+        "https://www.gravatar.com/avatar/2c6cf28f8cc40184909bd2c71c5edac2?s=32&d=identicon&r=PG"
+    ]
+}

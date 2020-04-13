@@ -1,0 +1,27 @@
+{
+  "name": "howdareyou",
+  "version": "1.0.0",
+  "description": "A simple discord bot truth or dare",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NEXOmega/howdareyou.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "truth-or-dare"
+  ],
+  "author": "NEXOmega",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NEXOmega/howdareyou/issues"
+  },
+  "homepage": "https://github.com/NEXOmega/howdareyou#readme",
+  "dependencies": {
+    "discord.js": "^12.1.1"
+  }
+}
