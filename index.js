@@ -1,5 +1,6 @@
 const discord = require("discord.js")
 const fs = require('fs')
+const axios = require('axios')
 const Party = require('./utils/party.js')
 
 const client = new discord.Client();
@@ -20,7 +21,7 @@ client.on("message", message => {
 
     var args = message.content.split(' ')
     if(message.content.startsWith('!help')){
-        message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
+        message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
         difficulty = require("./difficulties/"+message.content.split(' ')[1])
         message.reply("Set difficulty to " + message.content.split(" ")[1])
@@ -61,44 +62,68 @@ client.on("message", message => {
         })
     } else if(message.content.startsWith("!info")){
         generateInfo(message, difficulty)
-    } else if(message.content.startsWith('!createparty')) {
+    } else if(message.content.startsWith('!pcreate')) {
+        if(args.length < 3){
+            message.reply('Erreur pas assez d\'arguments faites !pcreate [partyname] [dificulty]')
+            return;
+        }
+        if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null) {
+            message.reply("Erreur, vous êtes déja dans une party faites !pleave")
+            return
+        }
         if(partyList[args[1]] != null) {
             message.reply("Cette party existe déja")
             return
         }
         partyList[args[1]] = new Party(args[1], args[2])
         partyList[args[1]].memberList.push(message.author.id)
-        playerList[message.author.id] = {party: args[1]}
+        if(playerList[message.author.id] == undefined)
+            playerList[message.author.id] = {party: args[1]}
+        else
+            playerList[message.author.id].party = args[1]
         message.reply("La party " + args[1] + " a bien été crée en difficulté " + args[2])
-    } else if(message.content.startsWith("!joinparty")) {
+    } else if(message.content.startsWith("!pjoin")) {
+        if(args.length <2){
+            message.reply('Erreur, pas assez d\'arguments faites !pjoin [party]')
+            return
+        }
+        if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null) {
+            message.reply("Erreur, vous êtes déja dans une party faites !pleave")
+            return
+        }
         var party = partyList[args[1]]
         if(party == undefined){
             message.reply("Cette party n'existe pas")
             return
         }
-        if(party.locked == false && playerList[message.author.id].party == null) {
+        if(party.locked == false) {
             partyList[args[1]].memberList.push(message.author.id)
+            if(playerList[message.author.id] == undefined)
+                playerList[message.author.id] = {party: args[1]}
+            else
+                playerList[message.author.id].party = args[1]
             message.reply("Vous avez rejoins la party !")
         } else
-            message.reply("Cette party est fermée ou vous etes deja dans une party faites !leave")
-    } else if(message.content.startsWith("!leave")) {
+            message.reply("Cette party est fermée")
+    } else if(message.content.startsWith("!pleave")) {
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
             message.reply("Erreur, vous n'êtes pas dans une party")
             return
         }
         if(playerList[message.author.id].party != null) {
             var party = partyList[playerList[message.author.id].party]
-            var index =party.memberList.indexOf(message.author.id)
 
-            if(index > -1 )
-                partyList[playerList[message.author.id].party].memberList.slice(index, 1)
+            partyList[playerList[message.author.id].party].memberList.remove(message.author.id)
             if(partyList[playerList[message.author.id].party].memberList.length == 0) {
-                partyList[playerlist[message.author.id].party] = null
+                partyList[playerList[message.author.id].party] = null
+                message.reply('La partie a été dissoute')
             }
             playerList[message.author.id].party = null
 
             message.reply("Vous avez quitté la party, c'est triste :sob:")
         }
+    } else if(message.content.startsWith('!pedit')) {
+        
     }
 })
 
@@ -228,7 +253,18 @@ Array.prototype.pushIfNotExist = function(element, comparer) {
     if (!this.inArray(comparer)) {
         this.push(element);
     }
-}; 
+};
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
 /*
 %p = Le joueur
 %rp = Personne aléatoire
