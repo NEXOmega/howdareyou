@@ -5,13 +5,11 @@
       "description": "test %rn[0,5] "
     }
   },
-  "special": {
+    "special": {
+        "nnn": {
+            "description": "nope"
+        }
   },
     "images": ["aaaa", "bbbb", "cccc"],
-    "options":{
-        "inherit":{
-            "dare":[],
-            "truth": []
-        }
-    }
+    "options":{}
 }

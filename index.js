@@ -5,7 +5,7 @@ const Party = require('./utils/party.js')
 
 const client = new discord.Client();
 var difficulties = {}
-var difficulty = require('./difficulties/test.json')
+var difficulty = require('./difficulties/custom.json')
 const config = require('./config.json')
 var regex = /(?<=\[)(.*?)(?=\])/
 
@@ -29,10 +29,8 @@ client.once('ready', () => {
             if(diff.options != undefined && diff.options.inherit != undefined) {
                 Object.keys(diff.options.inherit).forEach(e => {
                     diff.options.inherit[e].forEach(l => {
-                        diff[e] = Object.assign(diff[e], require("./difficulties/"+l+".json")[e]) 
-                        console.log(l)
+                        diff[e] = Object.assign(diff[e], require("./difficulties/"+l+".json")[e])
                     })
-                    console.log(e)
                 })
             }
             difficulties[f.replace(".json","")] = diff
@@ -50,7 +48,7 @@ client.on("message", message => {
         console.log(difficulties)
     }
     if(message.content.startsWith('!help')){
-        message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
+        message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri[difficulte] image aleatoire %rn[min, max] nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
         if(!fs.existsSync("./difficulties/"+args[1]+".json")){
             message.reply('La difficulté n\'existe pas faites !info')
@@ -200,11 +198,13 @@ function formatGage(message, gage) {
         description = description.replace("%lp", lastPlayer.username)
 
     if(description.includes("%rn")){
-        var interval = regex.exec(description)[0].split(',')
+        var regexrn = /(?<=%rn\[)(.*?)(?=\])/
+        var interval = regexrn.exec(description)[0].split(',')
         description = description.replace(`%rn[${regex.exec(description)[0]}]`, randomIntFromInterval(interval[0], interval[1]))
     }
     if(description.includes("%ri")){
-        description = description.replace(`%ri[${regex.exec(description)[0]}]`, difficulties[regex.exec(description)[0]].images[Math.floor(Math.random() * difficulty.images.length)])
+        var regexri = /(?<=%ri\[)(.*?)(?=\])/
+        description = description.replace(`%ri[${regexri.exec(description)[0]}]`, difficulties[regexri.exec(description)[0]].images[Math.floor(Math.random() * difficulty.images.length)])
     }
     if(description.includes("%rp")) {
         description = description.replace("%rp","^^^")
@@ -214,18 +214,15 @@ function formatGage(message, gage) {
             var randomPerson = message.guild.members.fetch().then(fetchedMembers => {
                 var online = fetchedMembers
                 online.forEach(e => {
-                    console.log(e.user.username)
                     if(e.user.bot == false && e.user != message.author)
                         listUsers.push(e.user.username)
                 })
                 message.reply(listUsers[Math.floor(Math.random() * listUsers.length)])
             })
         } else {
-            console.log("inparty")
             var members = partyList[playerList[message.author.id].party].memberList
             message.reply(members[Math.floor(Math.random() * members.length)])
         }
-        console.log(description)
     }
     return description
 

@@ -1,0 +1,48 @@
+{
+  "truth": {
+    "regretinternet": {
+      "description": "le pire truc que tu ais vu sur internet ?  "
+    },
+    "Liquide": {
+      "description": "As tu déjà goutté ton propre sperme/mouille ?  "
+    },
+    "Nope": {
+      "description": "Avec quelle personne du groupe souhaiterais tu sortir avec le moins ?  "
+    },
+    "Main": {
+      "description": "Te laves tu les mains en sortant des toilettes à chaque fois ?  "
+    },
+    "regret": {
+      "description": "le pire truc que tu ais vu sur internet ?  "
+    }
+  },
+  "dare": {
+    "Furry": {
+      "description": "Tous les joueurs de la partie doivent t'envoyer du Furry porn. Tu dois regarder chaque image au moins 10 secondes.  "
+    },
+    "ASMR": {
+      "description": "Mets une vidéo d'ASMR en fond audio pendant 5 minutes  "
+    },
+    "JUL": {
+      "description": "Mets un clip de JUL en fond audio pendant 5 minutes, les autres choisissent la chanson  "
+    },
+    "maraicher": {
+      "description": "vends ton appareil génital comme un vendeur de fruits et légumes  "
+    },
+    "trav": {
+      "description": "travestis toi  "
+    }
+  },
+    "special": {
+        "nope": {
+            "description": "test"
+        }
+    },
+  "images": [],
+    "options": {
+        "inherit":{
+            "dare":["normal", "hot", "superhot", "bdsm"],
+            "truth": ["normal", "hot", "superhot", "bdsm"]
+        }
+    }
+}
