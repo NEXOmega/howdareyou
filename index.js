@@ -23,16 +23,21 @@ client.on("message", message => {
     if(message.content.startsWith('!help')){
         message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
+        if(!fs.existsSync("./difficulties/"+args[1]+".json")){
+            message.reply('La difficulté n\'existe pas faites !info')
+            return
+        }
         difficulty = require("./difficulties/"+message.content.split(' ')[1])
         message.reply("Set difficulty to " + message.content.split(" ")[1])
     } else if(message.content.startsWith("!truth") || message.content.startsWith("!dare")) {
         if(playerList[message.author.id] == undefined)
             playerList[message.author.id] = {gageDone: []}
+        else
+            playerList[message.author.id].gageDone = []
 
         var key = generateGage(message)
         var type = message.content.replace("!", "")
         var gage = difficulty[type][key]
-        console.log(key)
         if(playerList[message.author.id].gageDone.join(',').includes(key)){
             if(gage.ifdone != null){
                 if(!playerList[message.author.id].gageDone.join(',').includes(gage.ifdone))
@@ -43,8 +48,6 @@ client.on("message", message => {
             if(!playerList[message.author.id].gageDone.join(',').includes(key))
                 playerList[message.author.id].gageDone.push(key)
         }
-
-        console.log(playerList[message.author.id].gageDone)
         message.reply(formatGage(message, gage))
 
         lastPlayer = message.author
@@ -56,7 +59,7 @@ client.on("message", message => {
         }
         dif[args[2]][args[3]] = {"description": description + " "}
 
-        fs.writeFile('./difficulties/'+args[1]+".json", JSON.stringify(dif), function(err) {
+        fs.writeFile('./difficulties/'+args[1]+".json", JSON.stringify(dif, null, 2), function(err) {
             if(err)
                 console.log(err)
         })
@@ -73,6 +76,10 @@ client.on("message", message => {
         }
         if(partyList[args[1]] != null) {
             message.reply("Cette party existe déja")
+            return
+        }
+        if(!fs.existsSync("./difficulties/"+args[2]+".json")){
+            message.reply('La difficulté n\'existe pas faites !info')
             return
         }
         partyList[args[1]] = new Party(args[1], args[2])
@@ -123,7 +130,22 @@ client.on("message", message => {
             message.reply("Vous avez quitté la party, c'est triste :sob:")
         }
     } else if(message.content.startsWith('!pedit')) {
-        
+        if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
+            message.reply("Erreur, vous n'êtes pas dans une party")
+            return
+        }
+        if(!fs.existsSync("./difficulties/"+args[1]+".json")){
+            message.reply('La difficulté n\'existe pas faites !info')
+            return
+        }
+        partyList[playerList[message.author.id].party].difficulty = message.content.split(' ')[1]
+        message.reply("Set difficulty to " + message.content.split(" ")[1])
+    } else if(message.content.startsWith('!plist')) {
+        if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
+            message.reply("Erreur, vous n'êtes pas dans une party")
+            return
+        }
+        message.reply(partyList[playerList[message.author.id].party].memberList)
     }
 })
 
@@ -151,19 +173,27 @@ function formatGage(message, gage) {
     if(description.includes("%rn"))
         description = description.replace("%rn", randomIntFromInterval(gage.randomint[0], gage.randomint[1]))
     if(description.includes("%ri"))
-        description = description.replace("%ri", Array.from(difficulty.images))
+        description = description.replace("%ri", difficulty.images[Math.floor(Math.random() * difficulty.images.length)])
 
     if(description.includes("%rp")) {
         description = description.replace("%rp","^^^")
-        var listUsers = []
-        var randomPerson = message.guild.members.fetch().then(fetchedMembers => {
-            var online = fetchedMembers.filter(member => member.presence.status === 'online');
-            online.forEach(e => {
-                if(e.user.bot == false && e.user != message.author)
-                    listUsers.push(e.user.username)
+        if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
+            console.log("noparty")
+            var listUsers = []
+            var randomPerson = message.guild.members.fetch().then(fetchedMembers => {
+                var online = fetchedMembers
+                online.forEach(e => {
+                    console.log(e.user.username)
+                    if(e.user.bot == false && e.user != message.author)
+                        listUsers.push(e.user.username)
+                })
+                message.reply(listUsers[Math.floor(Math.random() * listUsers.length)])
             })
-            message.reply(Array.from(listUsers))
-        })
+        } else {
+            console.log("inparty")
+            var members = partyList[playerList[message.author.id].party].memberList
+            message.reply(members[Math.floor(Math.random() * members.length)])
+        }
         console.log(description)
     }
     return description
@@ -182,6 +212,7 @@ function generateInfo(message, difficulty) {
         .setTitle("Info sur la difficultée en cours")
         .addFields({name: 'Nombre de véritées', value: Object.keys(difficulty.truth).length, inline: true})
         .addFields({name: 'Nombre de gages', value: Object.keys(difficulty.dare).length, inline: true})
+        .addFields({name: 'Nombre de spécials', value: Object.keys(difficulty.special).length, inline: true})
     if(message.content.includes('-t')) {
         var count = 0;
         var response = "--{Liste des véritées}--\n"
@@ -203,6 +234,21 @@ function generateInfo(message, difficulty) {
         Object.keys(difficulty.dare).forEach(e => {
             count += 1
             response += e + " : " + difficulty.dare[e].description + "\n"
+
+            if(count == 10) {
+                message.channel.send(response)
+                count =0
+                response = ""
+            }
+        })
+        message.channel.send(response)
+    }
+    if(message.content.includes('-s')) {
+        var count = 0;
+        var response = "--{Liste des Spécials}--\n"
+        Object.keys(difficulty.special).forEach(e => {
+            count += 1
+            response += e + " : " + difficulty.special[e].description + "\n"
 
             if(count == 10) {
                 message.channel.send(response)

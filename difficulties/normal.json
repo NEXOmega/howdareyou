@@ -54,6 +54,9 @@
             "description":"Raconte une anecdote cocasse"
         }
     },
+    "special":{
+        
+    },
     "images":[
         "https://www.gravatar.com/avatar/2c6cf28f8cc40184909bd2c71c5edac2?s=32&d=identicon&r=PG"
     ]

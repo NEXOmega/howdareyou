@@ -1,1 +1,78 @@
-{"truth":{"crush":{"description":"Dis le nom de ton crush"},"cmdkiss":{"description":"Combien de personnes as-tu embrassé"},"cmdcouple":{"description":"Combien de fois as tu été en couple ?"},"plusgrosmensons":{"description":"Quel est ton plus gros mensonge ?"},"longestfap":{"description":"Quelle est ta plus longue branlette ?"},"dangerosfap":{"description":"Quel a été ta branlette la plus risquée ?"},"attirance":{"description":"Qui t'attire le plus ici ?"},"cuite":{"description":"As tu deja eu une cuite avec un black-out ?"},"badtrip":{"description":"As tu deja fais un badtrip ?"},"premierfantasme":{"description":"Quel est la première personne a t'avoir fais fantasmer"},"dream":{"description":"As tu fais un rêve erotique avec une personne ici-présente ?  ","ifdone":"dreamdeux"}},"dare":{"draguer":{"description":"Draguer un random (De n'importe ou)"},"phtodossier":{"description":"Prendre une photo dossier et l'envoyer"},"chansoncrush":{"description":"Faire une chanson et l'envoyer à son crush"},"dossierselect":{"description":"Choisi une personne qui devra envoyer un dossier"},"cry":{"description":"%rp doit vous dire quelque chose a crier par la fenêtre"},"chibbrax":{"description":"Dessine toi un chibre sur la joue"},"anecdoteex":{"description":"Raconte une anecdote sur ton ex"}},"images":{},"special":{"dreamdeux":{"description":"Avec qui as tu fais ce rêve ?"}}}
+{
+  "truth": {
+    "crush": {
+      "description": "Dis le nom de ton crush"
+    },
+    "cmdkiss": {
+      "description": "Combien de personnes as-tu embrassé"
+    },
+    "cmdcouple": {
+      "description": "Combien de fois as tu été en couple ?"
+    },
+    "plusgrosmensons": {
+      "description": "Quel est ton plus gros mensonge ?"
+    },
+    "longestfap": {
+      "description": "Quelle est ta plus longue branlette ?"
+    },
+    "dangerosfap": {
+      "description": "Quel a été ta branlette la plus risquée ?"
+    },
+    "attirance": {
+      "description": "Qui t'attire le plus ici ?"
+    },
+    "cuite": {
+      "description": "As tu deja eu une cuite avec un black-out ?"
+    },
+    "badtrip": {
+      "description": "As tu deja fais un badtrip ?"
+    },
+    "premierfantasme": {
+      "description": "Quel est la première personne a t'avoir fais fantasmer"
+    },
+    "dream": {
+      "description": "As tu fais un rêve erotique avec une personne ici-présente ?  ",
+      "ifdone": "dreamdeux"
+    }
+  },
+  "dare": {
+    "draguer": {
+      "description": "Draguer un random (De n'importe ou)"
+    },
+    "phtodossier": {
+      "description": "Prendre une photo dossier et l'envoyer"
+    },
+    "chansoncrush": {
+      "description": "Faire une chanson et l'envoyer à son crush"
+    },
+    "dossierselect": {
+      "description": "Choisi une personne qui devra envoyer un dossier"
+    },
+    "cry": {
+      "description": "%rp doit vous dire quelque chose a crier par la fenêtre"
+    },
+    "chibbrax": {
+      "description": "Dessine toi un chibre sur la joue"
+    },
+    "anecdoteex": {
+      "description": "Raconte une anecdote sur ton ex"
+    },
+    "makesameanwhite": {
+      "description": " Envoie 'Je veux qu'on fasse pareil https://thenypost.files.wordpress.com/2018/07/angela-white-manuel-ferrara-goat-index.jpg?quality=80&strip=all' a la %rn ème personne de tes messages discord  ",
+      "randomint": [
+        1,
+        10
+      ]
+    },
+    "amsrrandom": {
+        "description": "Envoyer un vocal d'asmr a la %rn personne de tes messages discord  ",
+        "randomint": [0,10]
+    }
+  },
+  "images": {},
+  "special": {
+    "dreamdeux": {
+      "description": "Avec qui as tu fais ce rêve ?"
+    }
+  }
+}

@@ -1,15 +1,16 @@
 {
-    "truth":{
-        "test":{
-            "description": "Partie 1"
+  "truth": {},
+  "dare": {
+    "envoieangwhite": {
+      "description": "test %ri "
+    }
+  },
+  "special": {
+  },
+    "images": ["aaaa", "bbbb", "cccc"],
+    "options":{
+        "inherit":{
+            "dare":["bdsm"]
         }
-    },
-    "dare":{
-    },
-    "special":{
-        "houla":{
-            "description":"Partie 2"
-        }
-    },
-    "images": []
+    }
 }

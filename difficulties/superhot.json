@@ -1,33 +1,47 @@
 {
-    "truth":{
-        "nude":{
-            "description": "Combien a combien de personne as tu envoyé une nude/photo sexy"
-        },
-        "fantasme": {
-            "description": "Quel est ton plus gros fantasme ?"
-        },
-        "baise?":{
-            "description": "Pourrais tu baiser avec %rp ? :smirk:"
-        },
-        "refroidissement":{
-            "description":"Qu'est ce qui te refroidit instantanément ?"
-        },
-        "chauffage":{
-            "description":"Quel est la chose qui t'excite le plus rapidement ?"
-        }
+  "truth": {
+    "nude": {
+      "description": "Combien a combien de personne as tu envoyé une nude/photo sexy"
     },
-    "dare":{
-        "num":{
-            "description": "Essaye de choper le num d'un inconnu en 10 min"
-        },
-        "crushlove": {
-            "description": "Dis a ton crush que tu l'aimes"
-        },
-        "fakepd":{
-            "description": "Fais croire a tes parents que tu es gay"
-        }
+    "fantasme": {
+      "description": "Quel est ton plus gros fantasme ?"
     },
-    "images":{
-        
+    "baise?": {
+      "description": "Pourrais tu baiser avec %rp ? :smirk:"
+    },
+    "refroidissement": {
+      "description": "Qu'est ce qui te refroidit instantanément ?"
+    },
+    "chauffage": {
+      "description": "Quel est la chose qui t'excite le plus rapidement ?"
     }
+  },
+  "dare": {
+    "num": {
+      "description": "Essaye de choper le num d'un inconnu en 10 min"
+    },
+    "crushlove": {
+      "description": "Dis a ton crush que tu l'aimes"
+    },
+    "fakepd": {
+      "description": "Fais croire a tes parents que tu es gay"
+    },
+    "chaufferandom": {
+      "description": "Tu dois chauffer %rp  "
+    },
+      "randomtrash": {
+          "description": "Envoie cette image %ri à la %rn personne de ton discord",
+          "randomint": [2,15]
+      }
+  },
+  "special": {},
+    "images": ["https://i.pinimg.com/originals/81/fa/97/81fa9767d76b25ecc6b06eb427fa2570.jpg",
+               "https://66.media.tumblr.com/5898c180b95d72ed904d5ba9c93ca8c5/tumblr_pt5nve9nGY1x4v2r5o1_400.gif",
+               "https://lh3.googleusercontent.com/proxy/HF1GvJcIxT9DRJsl8Z_I_JlpCbCVS9hPUJLnS0oMU20s9ikk9C5pgvroeXYXgHXUCdRHVohR3SagfgLtIVMxMT4NHPcGdwjdqNM",
+               "https://lh3.googleusercontent.com/proxy/HF1GvJcIxT9DRJsl8Z_I_JlpCbCVS9hPUJLnS0oMU20s9ikk9C5pgvroeXYXgHXUCdRHVohR3SagfgLtIVMxMT4NHPcGdwjdqNM",
+               "https://moustique.cdnartwhere.eu/sites/default/files/field/image/isola-dei-famosi-il-primo-naufrago-e-lattore-rocco-siffredi_0.jpg",
+               "https://static1.purepeople.com/articles/7/37/70/27/@/5444144-caroline-ducey-joue-helena-sargue-dans-l-624x600-1.jpg",
+               "https://media.discordapp.net/attachments/644934510797914122/698097449436446740/image5.jpg?width=904&height=619",
+               "https://media.discordapp.net/attachments/644934510797914122/698097447766851635/image2.jpg?width=351&height=619",
+               "https://media.discordapp.net/attachments/644934510797914122/697365892027121704/IMG_8888.JPG?width=876&height=619"]
 }
