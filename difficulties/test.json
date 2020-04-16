@@ -1,8 +1,8 @@
 {
   "truth": {},
   "dare": {
-    "envoieangwhite": {
-      "description": "test %ri "
+    "test": {
+      "description": "test %rn[0,5] "
     }
   },
   "special": {
@@ -10,7 +10,8 @@
     "images": ["aaaa", "bbbb", "cccc"],
     "options":{
         "inherit":{
-            "dare":["bdsm"]
+            "dare":[],
+            "truth": []
         }
     }
 }

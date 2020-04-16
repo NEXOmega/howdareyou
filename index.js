@@ -4,14 +4,40 @@ const axios = require('axios')
 const Party = require('./utils/party.js')
 
 const client = new discord.Client();
+var difficulties = {}
 var difficulty = require('./difficulties/test.json')
 const config = require('./config.json')
+var regex = /(?<=\[)(.*?)(?=\])/
 
 var partyList = {}
 var playerList = {}
 var lastPlayer = ""
 client.once('ready', () => {
     console.log('Ready !')
+    fs.readdir("./difficulties/", (err, files) => {
+        if(err) console.log(err);
+
+        let jsfile = files.filter(f => f.split(".").pop() === "json" && !f.startsWith("!"))
+        if (jsfile.length <= 0) {
+            console.log("Couldn't find commands");
+            return;
+        }
+
+        jsfile.forEach((f,i) => {
+            console.log(`${f} loaded !`);
+            var diff = require('./difficulties/'+f)
+            if(diff.options != undefined && diff.options.inherit != undefined) {
+                Object.keys(diff.options.inherit).forEach(e => {
+                    diff.options.inherit[e].forEach(l => {
+                        diff[e] = Object.assign(diff[e], require("./difficulties/"+l+".json")[e]) 
+                        console.log(l)
+                    })
+                    console.log(e)
+                })
+            }
+            difficulties[f.replace(".json","")] = diff
+        });
+    })
 })
 
 client.login(config.token)
@@ -20,6 +46,9 @@ client.on("message", message => {
     if(!message.content.startsWith("!")) return
 
     var args = message.content.split(' ')
+    if(message.content.startsWith("!test")) {
+        console.log(difficulties)
+    }
     if(message.content.startsWith('!help')){
         message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri image aleatoire %rn(a,b) nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
@@ -27,7 +56,7 @@ client.on("message", message => {
             message.reply('La difficulté n\'existe pas faites !info')
             return
         }
-        difficulty = require("./difficulties/"+message.content.split(' ')[1])
+        difficulty = difficulties[args[1]]
         message.reply("Set difficulty to " + message.content.split(" ")[1])
     } else if(message.content.startsWith("!truth") || message.content.startsWith("!dare")) {
         if(playerList[message.author.id] == undefined)
@@ -138,8 +167,8 @@ client.on("message", message => {
             message.reply('La difficulté n\'existe pas faites !info')
             return
         }
-        partyList[playerList[message.author.id].party].difficulty = message.content.split(' ')[1]
-        message.reply("Set difficulty to " + message.content.split(" ")[1])
+        partyList[playerList[message.author.id].party].difficulty = args[1]
+        message.reply("Set difficulty to " + args[1])
     } else if(message.content.startsWith('!plist')) {
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
             message.reply("Erreur, vous n'êtes pas dans une party")
@@ -151,7 +180,7 @@ client.on("message", message => {
 
 function generateGage(message){
     if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null)
-        difficulty = require('./difficulties/'+partyList[playerList[message.author.id].party].difficulty)
+        difficulty = difficulties[partyList[playerList[message.author.id].party].difficulty]
 
     var type = message.content.replace("!", "")
     var keys = Object.keys(difficulty[type])
@@ -170,11 +199,13 @@ function formatGage(message, gage) {
     if(description.includes("%lp"))
         description = description.replace("%lp", lastPlayer.username)
 
-    if(description.includes("%rn"))
-        description = description.replace("%rn", randomIntFromInterval(gage.randomint[0], gage.randomint[1]))
-    if(description.includes("%ri"))
-        description = description.replace("%ri", difficulty.images[Math.floor(Math.random() * difficulty.images.length)])
-
+    if(description.includes("%rn")){
+        var interval = regex.exec(description)[0].split(',')
+        description = description.replace(`%rn[${regex.exec(description)[0]}]`, randomIntFromInterval(interval[0], interval[1]))
+    }
+    if(description.includes("%ri")){
+        description = description.replace(`%ri[${regex.exec(description)[0]}]`, difficulties[regex.exec(description)[0]].images[Math.floor(Math.random() * difficulty.images.length)])
+    }
     if(description.includes("%rp")) {
         description = description.replace("%rp","^^^")
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
@@ -315,6 +346,6 @@ Array.prototype.remove = function() {
 %p = Le joueur
 %rp = Personne aléatoire
 %lp = Dernière personne
-%ri
-%rn
+%ri[difficulty]
+%rn[min, max]
  */

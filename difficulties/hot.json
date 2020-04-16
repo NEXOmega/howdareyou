@@ -58,15 +58,10 @@
       "description": "Raconte une anecdote sur ton ex"
     },
     "makesameanwhite": {
-      "description": " Envoie 'Je veux qu'on fasse pareil https://thenypost.files.wordpress.com/2018/07/angela-white-manuel-ferrara-goat-index.jpg?quality=80&strip=all' a la %rn ème personne de tes messages discord  ",
-      "randomint": [
-        1,
-        10
-      ]
+      "description": " Envoie 'Je veux qu'on fasse pareil https://thenypost.files.wordpress.com/2018/07/angela-white-manuel-ferrara-goat-index.jpg?quality=80&strip=all' a la %rn[1,10] ème personne de tes messages discord  "
     },
     "amsrrandom": {
-        "description": "Envoyer un vocal d'asmr a la %rn personne de tes messages discord  ",
-        "randomint": [0,10]
+        "description": "Envoyer un vocal d'asmr a la %rn[1,10] personne de tes messages discord  "
     }
   },
   "images": {},

@@ -30,8 +30,7 @@
       "description": "Tu dois chauffer %rp  "
     },
       "randomtrash": {
-          "description": "Envoie cette image %ri à la %rn personne de ton discord",
-          "randomint": [2,15]
+          "description": "Envoie cette image %ri[superhot] à la %rn[2,15] personne de ton discord"
       }
   },
   "special": {},
