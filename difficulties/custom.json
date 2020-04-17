@@ -13,7 +13,170 @@
       "description": "Te laves tu les mains en sortant des toilettes à chaque fois ?  "
     },
     "regret": {
-      "description": "le pire truc que tu ais vu sur internet ?  "
+      "description": "Quel est ton plus grand regret ?"
+    },
+    "cpltime": {
+      "description": "Combien de fois as tu été en couple ?"
+    },
+    "nuit": {
+      "description": "Ou aimerais tu passer la nuit ?"
+    },
+    "iledeserte": {
+      "description": "Qui emmênerais tu sur une ile deserte ?"
+    },
+    "jouet": {
+      "description": "Quel jouet voulais tu quand tu etais petit ?"
+    },
+    "defaut": {
+      "description": "Quel est ton plus grand défaut ?"
+    },
+    "qualite": {
+      "description": "Quel est ta plus grande qualitée ?"
+    },
+    "parachute": {
+      "description": "Si tu devais emmener quelqu'un en parachute qui serait-ce ?"
+    },
+    "reve": {
+      "description": "Quel est ton plus grand rêve ?"
+    },
+    "crush": {
+      "description": "Dis le nom de ton crush"
+    },
+    "cmdkiss": {
+      "description": "Combien de personnes as-tu embrassé"
+    },
+    "cmdcouple": {
+      "description": "Combien de fois as tu été en couple ?"
+    },
+    "plusgrosmensons": {
+      "description": "Quel est ton plus gros mensonge ?"
+    },
+    "longestfap": {
+      "description": "Quelle est ta plus longue branlette ?"
+    },
+    "dangerosfap": {
+      "description": "Quel a été ta branlette la plus risquée ?"
+    },
+    "attirance": {
+      "description": "Qui t'attire le plus ici ?"
+    },
+    "cuite": {
+      "description": "As tu deja eu une cuite avec un black-out ?"
+    },
+    "badtrip": {
+      "description": "As tu deja fais un badtrip ?"
+    },
+    "premierfantasme": {
+      "description": "Quel est la première personne a t'avoir fais fantasmer"
+    },
+    "dream": {
+      "description": "As tu fais un rêve erotique avec une personne ici-présente ?  ",
+      "ifdone": "dreamdeux"
+    },
+    "nude": {
+      "description": "Combien a combien de personne as tu envoyé une nude/photo sexy"
+    },
+    "fantasme": {
+      "description": "Quel est ton plus gros fantasme ?"
+    },
+    "baise?": {
+      "description": "Pourrais tu baiser avec %rp ? :smirk:"
+    },
+    "refroidissement": {
+      "description": "Qu'est ce qui te refroidit instantanément ?"
+    },
+    "chauffage": {
+      "description": "Quel est la chose qui t'excite le plus rapidement ?"
+    },
+    "Suicide": {
+      "description": " As tu déjà pensé à te suicider ?  "
+    },
+    "Meutre": {
+      "description": " As tu déjà pensé à tuer quelqu'un ?  "
+    },
+    "Torture": {
+      "description": " As tu déjà pensé à torturer quelqu'un ?  "
+    },
+    "star": {
+      "description": "qui est la star qui t'as fait fantasmer enfants  "
+    },
+    "Prout": {
+      "description": "as tu déjà pété en public  "
+    },
+    "complex": {
+      "description": "qu'est ce qui te complexe ?  "
+    },
+    "Dents": {
+      "description": "Quel est la plus longue période pendant laquelle tu ne t'es pas brossé les dents?  "
+    },
+    "Haine": {
+      "description": "Qui est la personne que tu hais le plus et pourquoi?  "
+    },
+    "Phase": {
+      "description": "quelle est la phase par laquelle tu es passé qui était la plus Cringe ?  "
+    },
+    "Tinder": {
+      "description": "Est tu déjà allé sur Tinder ? Comment était ton profil ?  "
+    },
+    "Porn": {
+      "description": "Le pire Porno que tu ais jamais vu ?  "
+    },
+    "Peur": {
+      "description": "Raconte le moment de ta plus grande terreur  "
+    },
+    "comment": {
+      "description": "as tu failli mourir ?  "
+    },
+    "crève": {
+      "description": "raconte comment tu as failli mourir  "
+    },
+    "Cigarette": {
+      "description": "As-tu déjà fumé? si oui raconte quand  "
+    },
+    "Croce": {
+      "description": "As tu déjà rigolé à une vidéo de Pierre Croce  "
+    },
+    "Norman": {
+      "description": "As tu déjà rigolé à une vidéo de Norman  "
+    },
+    "exploit": {
+      "description": "raconte la chose dont tu es le plus fier  "
+    },
+    "Leclerc": {
+      "description": "laisses tu passer les vieilles avant toi à la caisse du supermarché ?  "
+    },
+    "Pipi": {
+      "description": "raconte la dernière fois ou tu t'es pissé dessus  "
+    },
+    "pub": {
+      "description": "as tu succombé aux pub de pornhub ou équivalent ?  "
+    },
+    "bouffe": {
+      "description": "As-tu déjà mangé quelque chose que tu as trouvé par terre  "
+    },
+    "Gay": {
+      "description": "as tu déjà pensé que tu étais gay ?  "
+    },
+    "cadeau": {
+      "description": "As-tu déjà fait semblant d'être heureux de recevoir un cadeau? donne un exemple  "
+    },
+    "quelle": {
+      "description": "était ta première impression de %rp  "
+    },
+    "arabe": {
+      "description": "Aimes tu les arabes?  "
+    },
+    "poids": {
+      "description": "Combien tu pèses?  "
+    },
+    "loli": {
+      "description": "Est ce que le Lolicon est une forme de pédopornographique?  "
+    },
+    "gay": {
+      "description": "as tu déjà pensé que tu étais gay?  "
+    },
+    "influence": {
+      "description": "Quelle est la pire chose que tu as faite à cause de l'influence de quelqu'un d'autre?  "
     }
   },
   "dare": {
@@ -31,18 +194,230 @@
     },
     "trav": {
       "description": "travestis toi  "
+    },
+    "chanson": {
+      "description": "Chante une chanson"
+    },
+    "imit": {
+      "description": "Imite %lp, la dernière personne a avoir joué"
+    },
+    "favexpr": {
+      "description": "Dis l'expression favorite de ta personne favorite ici-présente"
+    },
+    "citr": {
+      "description": "Mange un citron"
+    },
+    "arbredroit": {
+      "description": "Fais l'arbre droit pendant 30 secondes"
+    },
+    "meme": {
+      "description": "Fais un meme"
+    },
+    "squat": {
+      "description": "Fais 60 squats"
+    },
+    "cocasse": {
+      "description": "Raconte une anecdote cocasse"
+    },
+    "draguer": {
+      "description": "Draguer un random (De n'importe ou)"
+    },
+    "phtodossier": {
+      "description": "Prendre une photo dossier et l'envoyer"
+    },
+    "chansoncrush": {
+      "description": "Faire une chanson et l'envoyer à son crush"
+    },
+    "dossierselect": {
+      "description": "Choisi une personne qui devra envoyer un dossier"
+    },
+    "cry": {
+      "description": "%rp doit vous dire quelque chose a crier par la fenêtre"
+    },
+    "chibbrax": {
+      "description": "Dessine toi un chibre sur la joue"
+    },
+    "anecdoteex": {
+      "description": "Raconte une anecdote sur ton ex"
+    },
+    "makesameanwhite": {
+      "description": " Envoie 'Je veux qu'on fasse pareil https://thenypost.files.wordpress.com/2018/07/angela-white-manuel-ferrara-goat-index.jpg?quality=80&strip=all' a la %rn[1,10] ème personne de tes messages discord  "
+    },
+    "amsrrandom": {
+      "description": "Envoyer un vocal d'asmr a la %rn[1,10] personne de tes messages discord  "
+    },
+    "num": {
+      "description": "Essaye de choper le num d'un inconnu en 10 min"
+    },
+    "crushlove": {
+      "description": "Dis a ton crush que tu l'aimes"
+    },
+    "fakepd": {
+      "description": "Fais croire a tes parents que tu es gay"
+    },
+    "chaufferandom": {
+      "description": "Tu dois chauffer %rp  "
+    },
+    "randomtrash": {
+      "description": "Envoie cette image %ri[superhot] à la %rn[2,15] personne de ton discord"
+    },
+    "relance": {
+      "description": "relance"
+    },
+    "Cheveux": {
+      "description": "Tu dois te couper une mèche de cheveux  "
+    },
+    "Cire": {
+      "description": "Tu dois te mettre une bande de cire sur la jambe et tirer  "
+    },
+    "Nez": {
+      "description": "Tu dois te tirer un  poil de nez avec une pince à épiler  "
+    },
+    "T-pose": {
+      "description": "T pose jusqu'a ce que ce soit à nouveau à ton tour  "
+    },
+    "ZeuVoice": {
+      "description": "Chante un refrain/bout de chanson que les autres choisissent  "
+    },
+    "Clash": {
+      "description": "Clash %rp  "
+    },
+    "Maths": {
+      "description": "Résous une équation que %rp te donne  "
+    },
+    "Allemand": {
+      "description": "lis un texte en allemand  "
+    },
+    "Espagnol": {
+      "description": " lis un texte en espagnol  "
+    },
+    "Anglais": {
+      "description": " lis un texte en Anglais  "
+    },
+    "Gallerie": {
+      "description": "Partage les 3 dernières photos que tu as enregistré  "
+    },
+    "pompe": {
+      "description": "fait une pompe sur une main  "
+    },
+    "Cul": {
+      "description": "Tappes toi les fesses  "
+    },
+    "Bataille": {
+      "description": "Bataille en 3 manches de Chifoumi entre toi et %lp !  "
+    },
+    "50/50": {
+      "description": "va sur le subreddit 50/50 et cliques sur les 3 premiers liens  "
+    },
+    "r/FiftyFifty": {
+      "description": "va sur le subreddit r/FiftyFifty et cliques sur les 3 premiers liens  "
+    },
+    "Chambre": {
+      "description": "ranges ta chambre enculé, avec photo à l'appui  "
+    },
+    "Dents": {
+      "description": "Brosses toi les dents jusqu'a ce que le tour de %rp vienne  "
+    },
+    "Salaire": {
+      "description": "va demander à tes parents combien ils gagnent par mois  "
+    },
+    "Prière": {
+      "description": "Récite nous une prière en latin ou en arabe  "
+    },
+    "Religion": {
+      "description": "Récite de mémoire un prière de n'importe quelle religion  "
+    },
+    "Citation": {
+      "description": "Va chercher une citation nulle sur internet, lis la aux autres, et écrit la sur ton bras  "
+    },
+    "Alcool": {
+      "description": "Bois un peu d'alcool.  "
+    },
+    "Slip": {
+      "description": "Enlèves ton pantalon et finis le jeu en slip  "
+    },
+    "Arbre": {
+      "description": "envoie une photo d'arbre à ton 5e @  "
+    },
+    "enlèves": {
+      "description": "ton t shirt et finis le jeu comme ça  "
+    },
+    "Trump": {
+      "description": "lis à voix haute le dernier tweet de trump  "
+    },
+    "Phobie": {
+      "description": "les autres doivent envoyer des images susceptibles de déclencher ta phobie 🕷️  "
+    },
+    "Molière": {
+      "description": "toi et %rp doivent jouer un bout de scène de théâtre choisit par le groupe  "
+    },
+    "Message": {
+      "description": "Envoie une copie du dernier message que tu as envoyé  "
+    },
+    "Wilfried": {
+      "description": "fais nous un raisonnement philosophique sur un thème donné par %rp  "
+    },
+    "PapaNowel": {
+      "description": "écris ta lettre au père Noël cette année  "
+    },
+    "garry": {
+      "description": "fais nous une imitation de  garry  "
+    },
+    "beauté": {
+      "description": "Va sur un site \" https://www.prettyscale.com/fr/ \" et dis nous ton score.\nPrettyScale  "
+    },
+    "bdsm": {
+      "description": "va sur le site \" https://bdsmtest.org/select-mode \" et dis nous ton résultat.  "
+    },
+    "fable": {
+      "description": "lis une fable de la fontaine  "
+    },
+    "maman": {
+      "description": "va demander à ta mère combien elle pèse  "
+    },
+    "yoga": {
+      "description": "refais une position de yoga choisie par le groupe, photo à l'appui  "
+    },
+    "zemmour": {
+      "description": "Lis une citation d'éric Zemmour  "
+    },
+    "jean-marie": {
+      "description": "lis une citation de Jean Marie Lepen  "
+    },
+    "phrase": {
+      "description": "Fais une phrase avec les mots que les autres joueurs te donnent  "
+    },
+    "dessin": {
+      "description": "dessine ce que %rp veut  "
+    },
+    "répète": {
+      "description": "soumet toi à la même action ou vérité que %lp  "
+    },
+    "image": {
+      "description": "Envoi %ri[hot] à 3 de tes contacts au choix  "
+    },
+    "hitler": {
+      "description": "Lis les premières lignes du discours d'hitler à voix haute https://www.scrapbookpages.com/DachauScrapbook/HitlerSpeeches.html  "
     }
   },
-    "special": {
-        "nope": {
-            "description": "test"
-        }
-    },
-  "images": [],
-    "options": {
-        "inherit":{
-            "dare":["normal", "hot", "superhot", "bdsm"],
-            "truth": ["normal", "hot", "superhot", "bdsm"]
-        }
+  "special": {
+    "nope": {
+      "description": "test"
     }
+  },
+  "images": [],
+  "options": {
+      "inherit": {
+      "dare": [
+        "normal",
+        "hot",
+          "superhot"
+      ],
+      "truth": [
+        "normal",
+        "hot",
+          "superhot"
+      ]
+    }
+  }
 }

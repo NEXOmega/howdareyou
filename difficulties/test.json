@@ -1,15 +1,24 @@
 {
-  "truth": {},
+  "truth": {
+    "oui": {
+      "description": "la mer nwar  "
+    }
+  },
   "dare": {
     "test": {
       "description": "test %rn[0,5] "
     }
   },
-    "special": {
-        "nnn": {
-            "description": "nope"
-        }
+  "special": {
+    "nnn": {
+      "description": "nope"
+    }
   },
-    "images": ["aaaa", "bbbb", "cccc"],
-    "options":{}
+  "images": [
+    "aaaa",
+    "bbbb",
+    "cccc"
+  ],
+  "options": {
+  }
 }

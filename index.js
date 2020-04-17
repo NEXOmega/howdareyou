@@ -5,7 +5,7 @@ const Party = require('./utils/party.js')
 
 const client = new discord.Client();
 var difficulties = {}
-var difficulty = require('./difficulties/custom.json')
+var difficulty = "custom"
 const config = require('./config.json')
 var regex = /(?<=\[)(.*?)(?=\])/
 
@@ -25,7 +25,8 @@ client.once('ready', () => {
 
         jsfile.forEach((f,i) => {
             console.log(`${f} loaded !`);
-            var diff = require('./difficulties/'+f)
+            var diff = JSON.parse(JSON.stringify(require('./difficulties/'+f)))
+            //console.log(diff)
             if(diff.options != undefined && diff.options.inherit != undefined) {
                 Object.keys(diff.options.inherit).forEach(e => {
                     diff.options.inherit[e].forEach(l => {
@@ -42,19 +43,19 @@ client.login(config.token)
 
 client.on("message", message => {
     if(!message.content.startsWith("!")) return
-
     var args = message.content.split(' ')
     if(message.content.startsWith("!test")) {
-        console.log(difficulties)
+        var dif = require('./difficulties/'+args[1].toLowerCase())
+        console.log(dif)
     }
     if(message.content.startsWith('!help')){
         message.reply("!dare pour une action;\n !truth pour une véritée;\n !difficulty [difficulty] pour changer la difficultée;\n !addquest [difficulty] [dare/truth] [gageName] [question] pour ajouter une question;\n!pcreate [partyname][difficulty] Créer une party;\n!pjoin [party] Rejoindre une party;\n!pleave Quitter la party;\n %p cible l'auteur %rp personne aleatoire %lp dernier joueur %ri[difficulte] image aleatoire %rn[min, max] nombre aleatoire")
     } else if(message.content.startsWith("!difficulty")) {
         if(!fs.existsSync("./difficulties/"+args[1]+".json")){
-            message.reply('La difficulté n\'existe pas faites !info')
+            message.channel.send('La difficulté n\'existe pas faites !info')
             return
         }
-        difficulty = difficulties[args[1]]
+        difficulty = args[1]
         message.reply("Set difficulty to " + message.content.split(" ")[1])
     } else if(message.content.startsWith("!truth") || message.content.startsWith("!dare")) {
         if(playerList[message.author.id] == undefined)
@@ -62,9 +63,13 @@ client.on("message", message => {
         else
             playerList[message.author.id].gageDone = []
 
+        if(playerList[message.author.id].party != null) {
+            difficulty = partyList[playerList[message.author.id].party].difficulty
+        }
+
         var key = generateGage(message)
         var type = message.content.replace("!", "")
-        var gage = difficulty[type][key]
+        var gage = difficulties[difficulty][type][key]
         if(playerList[message.author.id].gageDone.join(',').includes(key)){
             if(gage.ifdone != null){
                 if(!playerList[message.author.id].gageDone.join(',').includes(gage.ifdone))
@@ -75,34 +80,37 @@ client.on("message", message => {
             if(!playerList[message.author.id].gageDone.join(',').includes(key))
                 playerList[message.author.id].gageDone.push(key)
         }
-        message.reply(formatGage(message, gage))
+        message.channel.send(formatGage(message, gage))
 
         lastPlayer = message.author
     } else if(message.content.startsWith('!addquest')){
-        var dif = require('./difficulties/'+args[1])
+        var dif = require('./difficulties/'+args[1].toLowerCase())
+        console.log(dif)
         var description = ""
         for(i = 4; i < args.length; i++) {
             description += args[i] + " "
         }
-        dif[args[2]][args[3]] = {"description": description + " "}
+        dif[args[2].toLowerCase()][args[3].toLowerCase()] = {"description": description + " "}
 
-        fs.writeFile('./difficulties/'+args[1]+".json", JSON.stringify(dif, null, 2), function(err) {
+        fs.writeFile('./difficulties/'+args[1].toLowerCase()+".json", JSON.stringify(dif, null, 2), function(err) {
             if(err)
                 console.log(err)
         })
+        console.log(dif)
+        message.channel.send("Gage ajouté ! ")
     } else if(message.content.startsWith("!info")){
         generateInfo(message, difficulty)
     } else if(message.content.startsWith('!pcreate')) {
         if(args.length < 3){
-            message.reply('Erreur pas assez d\'arguments faites !pcreate [partyname] [dificulty]')
+            message.channel.send('Erreur pas assez d\'arguments faites !pcreate [partyname] [dificulty]')
             return;
         }
         if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null) {
-            message.reply("Erreur, vous êtes déja dans une party faites !pleave")
+            message.channel.send("Erreur, vous êtes déja dans une party faites !pleave")
             return
         }
         if(partyList[args[1]] != null) {
-            message.reply("Cette party existe déja")
+            message.channel.send("Cette party existe déja")
             return
         }
         if(!fs.existsSync("./difficulties/"+args[2]+".json")){
@@ -115,19 +123,19 @@ client.on("message", message => {
             playerList[message.author.id] = {party: args[1]}
         else
             playerList[message.author.id].party = args[1]
-        message.reply("La party " + args[1] + " a bien été crée en difficulté " + args[2])
+        message.channel.send("La party " + args[1] + " a bien été crée en difficulté " + args[2])
     } else if(message.content.startsWith("!pjoin")) {
         if(args.length <2){
-            message.reply('Erreur, pas assez d\'arguments faites !pjoin [party]')
+            message.channel.send('Erreur, pas assez d\'arguments faites !pjoin [party]')
             return
         }
         if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null) {
-            message.reply("Erreur, vous êtes déja dans une party faites !pleave")
+            message.channel.send("Erreur, vous êtes déja dans une party faites !pleave")
             return
         }
         var party = partyList[args[1]]
         if(party == undefined){
-            message.reply("Cette party n'existe pas")
+            message.channel.send("Cette party n'existe pas")
             return
         }
         if(party.locked == false) {
@@ -136,12 +144,12 @@ client.on("message", message => {
                 playerList[message.author.id] = {party: args[1]}
             else
                 playerList[message.author.id].party = args[1]
-            message.reply("Vous avez rejoins la party !")
+            message.channel.send("Vous avez rejoins la party !")
         } else
             message.reply("Cette party est fermée")
     } else if(message.content.startsWith("!pleave")) {
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
-            message.reply("Erreur, vous n'êtes pas dans une party")
+            message.channel.send("Erreur, vous n'êtes pas dans une party")
             return
         }
         if(playerList[message.author.id].party != null) {
@@ -150,38 +158,36 @@ client.on("message", message => {
             partyList[playerList[message.author.id].party].memberList.remove(message.author.id)
             if(partyList[playerList[message.author.id].party].memberList.length == 0) {
                 partyList[playerList[message.author.id].party] = null
-                message.reply('La partie a été dissoute')
+                message.channel.send('La partie a été dissoute')
             }
             playerList[message.author.id].party = null
 
-            message.reply("Vous avez quitté la party, c'est triste :sob:")
+            message.channel.send("Vous avez quitté la party, c'est triste :sob:")
         }
     } else if(message.content.startsWith('!pedit')) {
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
-            message.reply("Erreur, vous n'êtes pas dans une party")
+            message.channel.send("Erreur, vous n'êtes pas dans une party")
             return
         }
         if(!fs.existsSync("./difficulties/"+args[1]+".json")){
-            message.reply('La difficulté n\'existe pas faites !info')
+            message.channel.send('La difficulté n\'existe pas faites !info')
             return
         }
         partyList[playerList[message.author.id].party].difficulty = args[1]
         message.reply("Set difficulty to " + args[1])
     } else if(message.content.startsWith('!plist')) {
         if(playerList[message.author.id] == undefined || playerList[message.author.id].party == null) {
-            message.reply("Erreur, vous n'êtes pas dans une party")
+            message.channel.send("Erreur, vous n'êtes pas dans une party")
             return
         }
-        message.reply(partyList[playerList[message.author.id].party].memberList)
+        message.channel.send(partyList[playerList[message.author.id].party].memberList)
     }
 })
 
 function generateGage(message){
-    if(playerList[message.author.id] != undefined && playerList[message.author.id].party != null)
-        difficulty = difficulties[partyList[playerList[message.author.id].party].difficulty]
 
     var type = message.content.replace("!", "")
-    var keys = Object.keys(difficulty[type])
+    var keys = Object.keys(difficulties[difficulty][type])
     const randIndex = Math.floor(Math.random() * keys.length)
 
     var randKey = keys[randIndex]
@@ -221,7 +227,7 @@ function formatGage(message, gage) {
             })
         } else {
             var members = partyList[playerList[message.author.id].party].memberList
-            message.reply(members[Math.floor(Math.random() * members.length)])
+            message.channel.send(members[Math.floor(Math.random() * members.length)])
         }
     }
     return description
